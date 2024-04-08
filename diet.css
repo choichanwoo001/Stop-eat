@@ -1,0 +1,52 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column; /* 컨텐츠를 위에서 아래로 정렬 */
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 뷰포트 높이의 100% */
+}
+#searchArea, #searchContent {
+    text-align: center;
+    width: 80%; /* 페이지 폭의 80% */
+    margin: 10px auto; /* 간격을 위해 마진 */
+}
+#searchArea {
+    height: 30%; /* 페이지 높이의 30% */
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column; /* 컨텐츠를 위에서 아래로 정렬 */   
+    align-items: center;
+    
+    #searchInput, #searchBtn
+    {
+        margin-top: 10px;
+    }
+}
+#searchContent {
+    flex-grow: 1; /* 컨텐츠 영역이 사용 가능한 공간을 채울 수 있도록 함 */
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 컨텐츠를 위로 정렬 */
+    flex-direction: column; /* 컨텐츠를 위에서 아래로 정렬 */
+    overflow-y: auto; /* 컨텐츠가 컨테이너 높이를 초과하는 경우 세로 스크롤 추가 */
+    padding-top: 20px;
+}
+input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

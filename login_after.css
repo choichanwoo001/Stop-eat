@@ -1,0 +1,27 @@
+body
+{
+    position: relative;
+    margin: auto;
+    height: 500px;
+    width: 800px;
+    text-align: center;
+    z-index: 0;
+    background: url('다운로드.jpg') center/cover no-repeat fixed; /* 배경 이미지 추가 */
+
+}
+
+h2
+{
+    margin : 50px auto;
+    font-size: 100px; 
+}
+
+ul
+{
+    display : inline-block;
+}
+
+li
+{
+    margin-bottom: 20px;
+}

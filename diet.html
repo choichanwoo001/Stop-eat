@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Page</title>
+</head>
+<link rel="stylesheet" href="diet.css">
+<body>
+    <div id="searchArea">
+        <div class="title">Diet Page</div>
+        <div>
+            <input type="text" id="searchInput" placeholder="검색어를 입력하세요...">
+            <button id="searchBtn">검색</button>
+        </div>
+    </div>
+    <div id="searchContent">
+        <!-- 검색 결과 데이터-->
+    </div>
+
+    <script>
+        // 검색을 수행하는 함수
+        function performSearch() {
+            var searchInput = document.getElementById('searchInput').value;
+            var searchContentDiv = document.getElementById('searchContent');
+            //searchContentDiv.innerHTML = ''; // 이전 검색 결과 지우기
+
+            // 검색 결과를 시뮬레이션 (실제 검색 로직으로 대체)
+            for (var i = 1; i <= 10; i++) {
+                var searchResult = document.createElement('p');
+                searchResult.textContent = '검색 결과 ' + i + ' : ' + searchInput;
+                searchContentDiv.appendChild(searchResult);
+            }
+        }
+
+        // 검색 버튼 클릭 이벤트 리스너
+        document.getElementById('searchBtn').addEventListener('click', performSearch);
+    </script>
+</body>
+</html>

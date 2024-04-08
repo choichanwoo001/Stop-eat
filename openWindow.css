@@ -1,0 +1,22 @@
+body {
+    position: relative;
+    margin: auto;
+    height: 500px;
+    width: 800px;
+    text-align: center;
+    z-index: 0;
+    background: url('hamberger.jpg') center/cover no-repeat fixed; /* 배경 이미지 추가 */
+}
+
+h2 {
+    margin: 50px auto;
+    font-size: 80px;
+}
+
+.typeSpace {
+    margin-bottom: 20px;
+}
+
+.image {
+    opacity: 0.7; /* 이미지 투명도 조정 */
+}
