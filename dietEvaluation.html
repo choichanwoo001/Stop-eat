@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주간 식단평가</title>
+    <link rel="stylesheet" href="dietEvaluation.css">
+    <link rel="stylesheet" href="diet_recommendation_ver2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <img id="logo" src="logo.png" alt="로고"/>
+        <nav class="nav-links">
+            <a href="diet_recommendation.html">식단 추천</a>
+            <a id="mealRecordLink" href="mealInput.html">식단 기록</a>
+            <a href="dietEvaluation.html">식단 평가</a>
+        </nav>
+        <div class="header-buttons">
+            <button class="mypage" onclick="location.href='myPage.html'"> 
+                <i class="fas fa-user"></i> My page
+            </button>
+            <button class="logout" onclick="location.href='logout.php'">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
+    <div class="container">
+        <div class="evaluation-section">
+            <div>칼로리 평가</div>
+            <div>영양소 평가</div>
+            <div>탄-단-지 비율 평가</div>
+        </div>
+        <div class="final-evaluation">최종 평가</div>
+    </div>
+</body>
+</html>

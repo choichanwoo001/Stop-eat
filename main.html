@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다이어트 도우미</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <img id="logo" src="logo.png" alt="로고"/>
+        <nav class="nav-links">
+            <a href="diet_recommendation.html">식단 추천</a>
+            <a id="mealRecordLink" href="mealInput.html">식단 기록</a>
+            <a href="dietEvaluation.html">식단 평가</a>
+        </nav>
+        <div class="header-buttons">
+            <button class="mypage" onclick="location.href='myPage.html'"> 
+                <i class="fas fa-user"></i> My page
+            </button>
+            <button class="logout" onclick="location.href='logout.php'">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+       
+            <div class="description">
+                <div id="page1" class="page-content" >
+                <p style="font-weight: bold;">식단 추천 페이지:</p>
+                  나이, 성별, 신장, 몸무게 정보를 입력하고, 원하는 다이어트 강도를 선택하면 BMI를 계산해주고, 이를 기준으로 식단을 추천하는 페이지입니다.
+                    
+                </div>
+                <div id="page2" class="page-content" style="display: none;">
+                  <p style="font-weight: bold;">식단 기록 페이지:</p>
+                    아침, 점심, 저녁, 간식 별 메뉴를 입력하고 칼로리를 검색할 수 있어 총 칼로리를 계산하고 저장할 수 있습니다. 또한 선택한 날짜의 몸무게 변화를 그래프로 확인할 수 있습니다.
+                   
+                </div>
+                <div id="page3" class="page-content" style="display: none;">
+                    <p style="font-weight: bold;">식단 평가 페이지: </p>
+                    칼로리, 영양소, 탄단지 비율 및 전체적인 최종 평가를 나타내는 페이지입니다.
+                    
+                </div>
+
+                <div class="navigation">
+                    <a href="#" onclick="changePage(-1);">&lt; 이전</a>
+                    <a href="#" onclick="changePage(1);">다음 &gt;</a>
+                </div>
+                
+            </div>
+            
+           
+      
+        <div class="footer">
+            <img id="burger" src="working_burger.png" alt="햄버거 그림">
+            <div class="speech-bubble">
+                <p>너의 다이어트를 도와줄게!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const maxPages = 3; // 전체 페이지 수
+    
+        function changePage(delta) {
+            currentPage += delta;
+    
+            // 페이지 범위 제한
+            if (currentPage < 1) {
+                currentPage = 1;
+            } else if (currentPage > maxPages) {
+                currentPage = maxPages;
+            }
+    
+            // 모든 페이지 숨기기
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => {
+                page.style.display = 'none';
+            });
+    
+            // 현재 페이지만 보이도록 설정
+            document.getElementById(`page${currentPage}`).style.display = 'block';
+        }
+    </script>
+    
+</body>
+</html>

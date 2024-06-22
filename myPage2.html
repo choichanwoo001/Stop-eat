@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>프로필 관리</title>
+    <link rel="stylesheet" href="myPage2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <img id="logo" src="logo.png" alt="로고"/>
+        <button id="logoutButton">Log out</button>
+    </header>
+    <div class="main-container">
+        <div class="profile-section">
+            <img src="burger.jpg" alt="햄버거 아이콘" class="icon">
+            <h2>싱싱한 햄버거</h2>
+            <form id="profileForm" action="update_profile.php" method="POST">
+                <div class="input-group">
+                    <label for="username">사용자 이름</label>
+                    <input type="text" id="username" name="username" placeholder="사용자 이름" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">새 비밀번호</label>
+                    <input type="password" id="password" name="password" placeholder="새 비밀번호" required>
+                </div>
+                <div class="input-group">
+                    <label for="confirmPassword">새 비밀번호 확인</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="새 비밀번호 확인" required>
+                </div>
+                <div class="input-group">
+                    <label for="height">키 (cm)</label>
+                    <input type="number" id="height" name="height" placeholder="키 (cm)" required>
+                </div>
+                <div class="input-group">
+                    <label for="weight">몸무게 (kg)</label>
+                    <input type="number" id="weight" name="weight" placeholder="몸무게 (kg)" required>
+                </div>
+                <div class="input-group">
+                    <label for="bmi">BMI</label>
+                    <input type="text" id="bmi" name="bmi" placeholder="BMI" readonly>
+                </div>
+                <div class="input-group">
+                    <label for="targetWeight">목표 체중 (kg)</label>
+                    <input type="number" id="targetWeight" name="targetWeight" placeholder="목표 체중 (kg)">
+                </div>
+                <button type="submit" class="profile-button">저장</button>
+            </form>
+        </div>
+        <div class="calendar-section">
+            <div class="calendar-header">
+                <button class="nav-button" id="prevMonth">&lt;</button>
+                <span id="calendarTitle">2024년 5월</span>
+                <button class="nav-button" id="nextMonth">&gt;</button>
+            </div>
+            <div class="calendar">
+                <div class="week">
+                    <div class="day">Sun</div>
+                    <div class="day">Mon</div>
+                    <div class="day">Tue</div>
+                    <div class="day">Wed</div>
+                    <div class="day">Thu</div>
+                    <div class="day">Fri</div>
+                    <div class="day">Sat</div>
+                </div>
+                <div class="days" id="calendarDays">
+                    <!-- Calendar days will be generated dynamically here -->
+                </div>
+            </div>
+            <p class="message">아주 잘 하고 있어요! 😍</p>
+        </div>
+    </div>
+
+    <script>
+        // BMI 계산 함수
+        function calculateBMI() {
+            const height = document.getElementById('height').value;
+            const weight = document.getElementById('weight').value;
+            const bmi = document.getElementById('bmi');
+
+            if (height > 0 && weight > 0) {
+                const bmiValue = (weight / ((height / 100) ** 2)).toFixed(2);
+                bmi.value = bmiValue;
+            } else {
+                bmi.value = '';
+            }
+        }
+
+        // 비밀번호 확인 함수
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPassword').setCustomValidity('비밀번호가 일치하지 않습니다.');
+            } else {
+                document.getElementById('confirmPassword').setCustomValidity('');
+            }
+        }
+
+        // 달력 생성 함수
+        function generateCalendar(year, month) {
+            const calendarDays = document.getElementById('calendarDays');
+            calendarDays.innerHTML = '';
+
+            const date = new Date(year, month - 1, 1);
+            const firstDay = date.getDay();
+            const daysInMonth = new Date(year, month, 0).getDate();
+
+            // 빈 칸 추가
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('day', 'empty');
+                calendarDays.appendChild(emptyDay);
+            }
+
+            // 날짜 추가
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('day');
+                dayElement.textContent = day;
+                calendarDays.appendChild(dayElement);
+            }
+
+            document.getElementById('calendarTitle').textContent = `${year}년 ${month}월`;
+        }
+
+        // 현재 월, 연도 저장
+        let currentYear = 2024;
+        let currentMonth = 5;
+
+        // 이전 달로 이동
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            if (currentMonth === 1) {
+                currentMonth = 12;
+                currentYear--;
+            } else {
+                currentMonth--;
+            }
+            generateCalendar(currentYear, currentMonth);
+        });
+
+        // 다음 달로 이동
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            if (currentMonth === 12) {
+                currentMonth = 1;
+                currentYear++;
+            } else {
+                currentMonth++;
+            }
+            generateCalendar(currentYear, currentMonth);
+        });
+
+        // 페이지 로드 시 달력 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            generateCalendar(currentYear, currentMonth);
+        });
+
+        // 입력 필드에 이벤트 리스너 추가
+        document.getElementById('height').addEventListener('input', calculateBMI);
+        document.getElementById('weight').addEventListener('input', calculateBMI);
+        document.getElementById('password').addEventListener('input', validatePassword);
+        document.getElementById('confirmPassword').addEventListener('input', validatePassword);
+    </script>
+</body>
+</html>
