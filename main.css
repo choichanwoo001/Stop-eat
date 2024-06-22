@@ -81,81 +81,49 @@ header {
     font-size: 18px;
 }
 
-/* 메인 내용 CSS */
-.container {
-    width: 80%;
-    margin: 0 auto;
-    text-align: center;
-}
+/*메인 시작*/
 
-.main-content {
+.hero{
     display: flex;
-    justify-content: space-between;
-    padding: 20px 0;
-}
-
-.description {
-    background-color: white;
-    border-radius: 15px;
-    padding: 50px;
-    width: 500px;
-    margin: 50px auto;
-    height: 270px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.description p {
-    font-size: 20px;
-}
-
-.navigation {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-}
-
-.navigation a {
-    font-size: 20px;
-    text-decoration: none;
-    color: #000;
-}
-
-.footer {
-    display: flex;
-    align-items: center;
     justify-content: center;
-    margin-top: 20px;
-    position: relative;
-    gap: 50px;
+    margin-top: 80px;
 }
 
-#burger { 
-    width: 300px;
-    height: 300px;
-}
 
 .speech-bubble {
-    position: relative;
-    background: #ff867b88;
-    border-radius: 0.4em;
-    padding: 20px 70px;
-    color: #333;
-    font-size: 20px;
-    margin-left: 20px;
-    max-width: 300px;
+    position:relative;
+    width:100%;
+    padding:20px;
+    /*background-color:#fee1e1;*/
+    background-color: white;
+    border-radius:8px;
+    color:#333;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 .speech-bubble:after {
-    content: '';
-    position: absolute;
-    top: 60%;
-    left: -10px; /* Adjust this value if necessary */
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border: 10px solid transparent;
-    border-right-color: #ff867b88;
-    border-left: 0;
-    border-top: 0;
-    margin-top: -5px;
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-top-color: white;
+	border-bottom: 0;
+	margin-left: -20px;
+	margin-bottom: -20px;
+}
+
+#burger{
+    margin-top: 40px;
+}
+
+h1{
+    font-size: 30px;
+}
+
+p{
+    font-size: 20px;
 }
