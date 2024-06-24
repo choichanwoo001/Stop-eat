@@ -6,7 +6,9 @@ function addMenuItem(mealType) {
     newMenuRow.innerHTML = `
         <label for="${mealType}-menu-${index}">메뉴:</label>
         <input type="text" id="${mealType}-menu-${index}" class="menu-input" data-meal="${mealType}">
-        <button class="search-button" onclick="searchFunction('${mealType}', ${index})">검색</button>
+        <button class="search-button" onclick="searchFunction('${mealType}', ${index})">
+            <i class="fas fa-search"></i>
+        </button>
         <ul id="${mealType}-results-${index}" class="search-results"></ul>
     `;
     const newCalorieRow = document.createElement('div');
@@ -155,7 +157,6 @@ function updateChart() {
     const endDate = document.getElementById('end-date').value;
     console.log(`날짜 범위: ${startDate} - ${endDate}`);
 }
-
 
 function searchFunction(mealType, index) {
     const inputElement = document.getElementById(`${mealType}-menu-${index}`);
