@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>주간 식단평가</title>
     <link rel="stylesheet" href="dietEvaluation.css">
-    <link rel="stylesheet" href="diet_recommendation_ver2.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
@@ -31,12 +32,39 @@
         </div>
     </header>
     <div class="container">
-        <div class="evaluation-section">
-            <div>칼로리 평가</div>
-            <div>영양소 평가</div>
-            <div>탄-단-지 비율 평가</div>
+        <div id="container-header">
+            <h2>식단 평가</h2>
+            <div class="weekly-date-picker">
+                <label for="start-date">시작 날짜:</label>
+                <input type="date" id="start-date">
+                <label for="end-date">종료 날짜:</label>
+                <input type="date" id="end-date">
+                <button id="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </div>
-        <div class="final-evaluation">최종 평가</div>
+        <div class="evaluation-section">
+            <div class="evaluation-box" id="calorie-evaluation">
+                <h3>칼로리 평가</h3>
+                <canvas id="calorieChart" ></canvas>
+                <p id="calorie-comment"></p>
+            </div>
+            <div class="evaluation-box" id="ratio-evaluation">
+                <h3>탄-단-지 비율 평가</h3>
+                <canvas id="ratioChart" ></canvas>
+                <p id="ratio-comment"></p>
+            </div>
+        </div>
+        <div class="final-evaluation" id="final-evaluation">
+            <h3>최종 평가</h3>
+            <p id="final-comment"></p>
+        </div>
     </div>
+    <script src="dietEvaluation.js">
+
+        
+    </script>
+
 </body>
 </html>
