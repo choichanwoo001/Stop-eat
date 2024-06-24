@@ -1,6 +1,7 @@
 function addMenuItem(mealType) {
     const group = document.getElementById(`${mealType}-group`);
-    const index = group.getElementsByClassName('input-row').length / 2; // assuming each meal entry has 2 input rows
+    const index = group.getElementsByClassName('input-row').length / 3; // assuming each meal entry has 3 input rows (menu, serving, calories)
+
     const newMenuRow = document.createElement('div');
     newMenuRow.classList.add('input-row');
     newMenuRow.innerHTML = `
@@ -11,13 +12,24 @@ function addMenuItem(mealType) {
         </button>
         <ul id="${mealType}-results-${index}" class="search-results"></ul>
     `;
+
+    const newServingRow = document.createElement('div');
+    newServingRow.classList.add('input-row');
+    newServingRow.innerHTML = `
+        <label for="${mealType}-serving-${index}">인분:</label>
+        <input type='number' min='0.5' max='5' step='0.5' id="${mealType}-serving-${index}" class="serving-input" data-meal="${mealType}">
+        <div id="${mealType}-serving-display-${index}" class="calorie-display" data-meal="${mealType}"></div>
+    `;
+
     const newCalorieRow = document.createElement('div');
     newCalorieRow.classList.add('input-row');
     newCalorieRow.innerHTML = `
         <label for="${mealType}-calories-${index}">칼로리:</label>
         <div id="${mealType}-calories-${index}" class="calorie-display" data-meal="${mealType}"></div>
     `;
+
     group.appendChild(newMenuRow);
+    group.appendChild(newServingRow);
     group.appendChild(newCalorieRow);
 }
 
