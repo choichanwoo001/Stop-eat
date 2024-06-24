@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 가입</title>
+    <link rel="stylesheet" href="signup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="main.html">
+            <img id="logo" src="logo.png" alt="로고"/>
+        </a>
+        <nav class="nav-links">
+            <a href="diet_recommendation.html">식단 추천</a>
+            <a id="mealRecordLink" href="mealInput.html">식단 기록</a>
+            <a href="dietEvaluation.html">식단 평가</a>
+        </nav>
+        <div class="header-buttons">
+            <button class="mypage" onclick="location.href='myPage.html'"> 
+                <i class="fas fa-user"></i> My page
+            </button>
+            <button class="logout" onclick="location.href='logout.php'">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
+    <div class="container">
+        <h1>회원 가입</h1>
+        <form id="signupForm" action="" method="POST" onsubmit="loginButton(event)">
+            <div class="input-group">
+                <label for="username">사용자 이름</label>
+                <input type="text" id="username" name="username" placeholder="사용자 이름" required>
+            </div>
+            <div class="input-group">
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" placeholder="이메일" required>
+            </div>
+            <div class="input-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" placeholder="비밀번호" required>
+            </div>
+            <div class="input-group">
+                <label for="confirmPassword">비밀번호 확인</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호 확인" required>
+            </div>
+            <button type="submit" class="button">가입</button>
+        </form>
+    </div>
+
+    <script>
+        // 폼 제출 시 비밀번호 일치 여부 확인
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('비밀번호가 일치하지 않습니다.');
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

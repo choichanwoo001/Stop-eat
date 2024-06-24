@@ -1,0 +1,121 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffede4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+header {
+    width: 100%;
+    padding: 6px 0;
+    background-color: #ffe9df;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    flex-wrap: wrap;
+}
+
+#logo {
+    max-width: 100px;
+    margin-left: 30px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-links a {
+    font-size: 18px;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #ffa08f;
+    color: #fff;
+}
+
+.header-buttons {
+    display: flex;
+    margin-right: 30px;
+    gap: 20px;
+    justify-content: flex-end;
+}
+
+.header-buttons button {
+    font-size: 14px; 
+    font-family: 'Noto Sans KR', sans-serif;
+    color: white; 
+    background-color: #ff6f61;
+    border: none;
+    border-radius: 8px; 
+    padding: 6px 12px; 
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.header-buttons button:hover {
+    background-color: #ff5a4a; 
+    transform: translateY(-2px); 
+}
+
+.header-buttons button i {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.container {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    /* 기존의 height: 90%;을 고정 높이로 변경 */
+    height: calc(100vh - 160px); /* 이 값을 조정하여 원하는 높이를 설정 */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.evaluation-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.evaluation-section div {
+    width: 30%;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 18px;
+    height: 150px; /* 높이 설정 */
+}
+
+.final-evaluation {
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    height: 100px; /* 높이 설정 */
+}
+

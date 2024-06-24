@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>식단 추천</title>
+    <link rel="stylesheet" href="diet_recommendation_ver.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <a href="main.html">
+            <img id="logo" src="logo.png" alt="로고"/>
+        </a>
+        <nav class="nav-links">
+            <a href="diet_recommendation.html">식단 추천</a>
+            <a id="mealRecordLink" href="mealInput.html">식단 기록</a>
+            <a href="dietEvaluation.html">식단 평가</a>
+        </nav>
+        <div class="header-buttons">
+            <button class="mypage" onclick="location.href='myPage.html'"> 
+                <i class="fas fa-user"></i> My page
+            </button>
+            <button class="logout" onclick="location.href='logout.php'">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
+    <div class="main-container">
+        <div class="input-container">
+            <h1>🍽️ 식단 추천</h1>
+            <p>원하는 다이어트 강도를 입력하면, 계산한 BMI를 기준으로 식단을 추천해 줄게!</p>
+            <div class="input-group-wrapper">
+                <img src="working_burger.png" alt="Working Burger" class="burger-image"/>
+                <div class="input-groups">
+                    <div class="input-group">
+                        <label for="age">나이 :</label>
+                        <input type="number" id="age" placeholder="세">
+                    </div>
+                    <div class="input-group">
+                        <label for="gender">성별 :</label>
+                        <select id="gender">
+                            <option value="female">여자</option>
+                            <option value="male">남자</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="height">신장 :</label>
+                        <input type="number" id="height" placeholder="cm">
+                    </div>
+                    <div class="input-group">
+                        <label for="weight">몸무게 :</label>
+                        <input type="number" id="weight" placeholder="kg">
+                    </div>
+                    <button class="calculate-button" onclick="calculateBMI()">계산하기</button>
+                </div>
+            </div>
+            <div class="bmi-results">
+                <p class="bmi-display">나의 신장과 몸무게로 계산했을 때 BMI는 <span id="bmiValue">___</span>야!</p>
+                <p class="bmi-status">BMI로는 <span id="bmiStatus">___</span>이니까 <span id="bmiMessage">___</span></p>
+                <p class="recommendation">(추천 강도 : <span id="bmiRecommendation">___</span>)</p>
+            </div>
+            <div class="intensity-selection">
+                <h2>강도 선택</h2>
+                <button class="intensity-button" onclick="selectIntensity('easy')">Easy</button>
+                <button class="intensity-button" onclick="selectIntensity('medium')">Medium</button>
+                <button class="intensity-button" onclick="selectIntensity('hard')">Hard</button>
+            </div>
+        </div>        
+        <div class="recommendation-container">
+            <h1>추천 식단</h1>
+            <p id="dietRecommendation">다이어트 강도를 선택하면 추천 식단이 여기에 표시됩니다.</p>
+        </div>
+    </div>
+    <script src="diet_recommendation.js"></script>
+</body>
+</html>
