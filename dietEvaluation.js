@@ -8,19 +8,20 @@ document.getElementById('search-button').addEventListener('click', function() {
     //     });
 
     // Temporary comments for demonstration
-    const calorieComment = "칼로리 섭취가 적절합니다.";
-    const ratioComment = "탄수화물, 단백질, 지방 비율이 균형잡혀 있습니다.";
-    const finalComment = "전체적으로 훌륭한 식단입니다.";
+    const calorieComment = "일주일 동안 적정 칼로리를 섭취하셨군요!😊❤️";
+    const ratioComment = "탄수화물, 단백질, 지방 비율 모두 적절하게 섭취했어요!🥰 ";
+    const finalComment = "일주일에 평균 1675kcal를 섭취하셨군요!<br> 탄수화물, 단백질, 지방 비율도 약 5:3:2로 골고루 섭취해주셨어요🥰<br> 다이어트를 위한 적정 칼로리와 균형 잡힌 탄단지 비율을 올바르게 섭취하셨네요!<br> 앞으로도 지금처럼 잘 유지하실 수 있도록 도와드릴게요❤<br> 이번주도 다이어트 화이팅!🥰💪";
 
     // Display the comments
-    document.getElementById('calorie-comment').textContent = calorieComment;
-    document.getElementById('ratio-comment').textContent = ratioComment;
-    document.getElementById('final-comment').textContent = finalComment;
+    document.getElementById('calorie-comment').innerHTML = calorieComment;
+    document.getElementById('ratio-comment').innerHTML = ratioComment;
+    document.getElementById('final-comment').innerHTML = finalComment;
+
 
     // Calorie Chart
     const calorieXValues = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"];
-    const calorieYValues = [2000, 1800, 2200, 2100, 1900, 2300, 2500];
-    const calorieBarColors = ["#ff6384", "#36a2eb", "#cc65fe", "#ffce56", "#66bb6a", "#ffa726", "#8d6e63"];
+    const calorieYValues = [1573, 1823, 1492, 1765, 1982, 1302, 1784];
+    const calorieBarColors = ["#FF9286", "#FBB3A5", "#FFC5BA", "#FFCAD4", "#F4B7C6", "#FF92B1", "#FE7295"];
 
     new Chart("calorieChart", {
         type: "bar",
@@ -34,7 +35,7 @@ document.getElementById('search-button').addEventListener('click', function() {
         options: {
             legend: { display: false },
             title: {
-                display: true,
+                display: false,
                 text: "일별 칼로리 섭취"
             },
             scales: {
@@ -50,11 +51,12 @@ document.getElementById('search-button').addEventListener('click', function() {
 
     // Ratio Chart
     const xValues = ["탄수화물", "단백질", "지방"];
-    const yValues = [60, 25, 15];
+    const yValues = [53, 31, 16];
     const barColors = [
-        "#ff6384",
-        "#36a2eb",
-        "#cc65fe"
+        "#FE7295",
+        "#FF9286",
+        "#F4B7C6"
+       
     ];
 
     new Chart("ratioChart", {
@@ -68,8 +70,8 @@ document.getElementById('search-button').addEventListener('click', function() {
         },
         options: {
             title: {
-                display: true,
-                text: "Macronutrient Distribution"
+                display: false,
+                text: "일주일 섭취 탄단지 비율 그래프"
             }
         }
     });
