@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     background-color: #ffede4;
     margin: 0;
     padding: 0;
@@ -82,40 +82,142 @@ header {
     font-size: 18px;
 }
 
+
+/*메인 시작*/
 .container {
     background-color: #FFFFFF;
-    padding: 20px;
+    padding: 20px 50px;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    /* 기존의 height: 90%;을 고정 높이로 변경 */
-    height: calc(100vh - 160px); /* 이 값을 조정하여 원하는 높이를 설정 */
+    width: 90%;
+    height: calc(100vh - 160px);
     margin-top: 20px;
     margin-bottom: 20px;
+    box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures the final evaluation section is at the bottom */
 }
+
+#container-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+}
+
+h2 {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    margin: 0;
+}
+
+.weekly-date-picker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);   
+}
+
+.weekly-date-picker label {  /* 라벨과 인풋 사이의 간격 조정 */
+    margin-right: 10px;
+}
+
+.weekly-date-picker input[type="date"] {
+    margin-right: 20px;
+}
+
+input[type="date"] {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 1em;
+    color: #333;
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: #333;
+    cursor: pointer;
+}
+
+.weekly-date-picker button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    font-size: 1.2em;
+}
+
+/* Add these styles to your existing CSS */
+
+.evaluation-box canvas {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    max-height: 300px; /* Set a maximum height for the canvas */
+    margin: 0 auto; /* Center the canvas */
+}
+
+/*
+.evaluation-section {
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+}
+*/
 
 .evaluation-section {
-    display: flex;
-    justify-content: space-between;
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px; 
+    flex: 1; /* Ensures it takes the remaining space */
     margin-bottom: 20px;
+    
 }
 
-.evaluation-section div {
-    width: 30%;
-    padding: 20px;
-    border: 1px solid black;
+.evaluation-box {
+    background-color: #ffe9df;
     border-radius: 15px;
+    padding: 20px;
     text-align: center;
-    font-size: 18px;
-    height: 150px; /* 높이 설정 */
+    font-size: 20px;
+    color: #333;
+    box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
 }
 
 .final-evaluation {
-    border: 1px solid black;
+    background-color: #ffe9df;
     border-radius: 15px;
     padding: 20px;
     text-align: center;
-    font-size: 18px;
-    height: 100px; /* 높이 설정 */
+    font-size: 20px;
+    color: #333;
+    box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    flex: 1;
 }
 
+h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #555;
+    margin-top: 0;
+    text-align: center;
+    flex: 1;
+}
+
+p {
+    margin: 0;
+}
