@@ -14,7 +14,7 @@ function calculateBMI() {
 
         let bmiStatus = '';
         let bmiMessage = '';
-        let bmiRecommendation = 'Easy, Medium';
+        let bmiRecommendation = 'Easy, Normal';
 
         if (gender === 'female') {
             if (age >= 2 && age <= 5) {
@@ -83,10 +83,10 @@ function calculateBMI() {
             bmiRecommendation = 'Easy';
         } else if (bmiStatus === '정상 체중') {
             bmiMessage = '과도한 다이어트보다는 건강한 식습관을 유지해보세요.';
-            bmiRecommendation = 'Easy, Medium';
+            bmiRecommendation = 'Easy, Normal';
         } else {
             bmiMessage = '체중을 줄이기 위해 노력해보세요.';
-            bmiRecommendation = 'Medium, Hard';
+            bmiRecommendation = 'Normal, Hard';
         }
 
         bmiStatusElement.innerText = bmiStatus;
@@ -106,8 +106,8 @@ function selectIntensity(intensity) {
 
     if (intensity === 'easy') {
         recommendation = 'Easy 강도의 식단 추천: \n1. 샐러드 \n2. 과일 \n3. 저지방 요거트';
-    } else if (intensity === 'medium') {
-        recommendation = 'Medium 강도의 식단 추천: \n1. 구운 닭가슴살 \n2. 찐 야채 \n3. 현미밥';
+    } else if (intensity === 'normal') {
+        recommendation = 'Normal 강도의 식단 추천: \n1. 구운 닭가슴살 \n2. 찐 야채 \n3. 현미밥';
     } else if (intensity === 'hard') {
         recommendation = 'Hard 강도의 식단 추천: \n1. 고단백 식품 \n2. 고섬유질 식품 \n3. 저탄수화물 식단';
     }
