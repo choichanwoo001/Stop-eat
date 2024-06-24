@@ -29,5 +29,3 @@ async function getGPTResponse(prompt) {
     const gptResponse = await getGPTResponse(prompt);
     console.log(gptResponse);
   })();
-
-  return gptResponse;
