@@ -1,24 +1,22 @@
 function addMenuItem(mealType) {
     const group = document.getElementById(`${mealType}-group`);
-    const index = group.childElementCount / 2; // 현재 추가된 행의 수를 기준으로 인덱스를 결정
-    
-    const menuRow = document.createElement('div');
-    menuRow.className = 'input-row';
-    menuRow.innerHTML = `
+    const index = group.getElementsByClassName('input-row').length / 2; // assuming each meal entry has 2 input rows
+    const newMenuRow = document.createElement('div');
+    newMenuRow.classList.add('input-row');
+    newMenuRow.innerHTML = `
         <label for="${mealType}-menu-${index}">메뉴:</label>
         <input type="text" id="${mealType}-menu-${index}" class="menu-input" data-meal="${mealType}">
-        <button class="search-button" onclick="searchCalories('${mealType}', ${index})">검색</button>
+        <button class="search-button" onclick="searchFunction('${mealType}', ${index})">검색</button>
+        <ul id="${mealType}-results-${index}" class="search-results"></ul>
     `;
-    
-    const calorieRow = document.createElement('div');
-    calorieRow.className = 'input-row';
-    calorieRow.innerHTML = `
+    const newCalorieRow = document.createElement('div');
+    newCalorieRow.classList.add('input-row');
+    newCalorieRow.innerHTML = `
         <label for="${mealType}-calories-${index}">칼로리:</label>
         <div id="${mealType}-calories-${index}" class="calorie-display" data-meal="${mealType}"></div>
     `;
-    
-    group.appendChild(menuRow);
-    group.appendChild(calorieRow);
+    group.appendChild(newMenuRow);
+    group.appendChild(newCalorieRow);
 }
 
 function saveCalories() {
@@ -58,23 +56,44 @@ function saveCalories() {
     document.querySelectorAll('.calorie-display').forEach(display => display.textContent = '');
 }
 
-function searchCalories(mealType, index) {
+function searchMenu(mealType, index) {
+    const menuInput = document.getElementById(`${mealType}-menu-${index}`);
+    const resultsList = document.getElementById(`${mealType}-results-${index}`);
+
+    // Simulate fetching menu data from the database
+    // This should be replaced with an actual API call
+    const mockMenuData = {
+        '김밥': 250,
+        '라면': 500,
+        '샐러드': 150,
+        '피자': 600,
+        '치킨': 700
+    };
+
+    const query = menuInput.value.toLowerCase();
+    const results = Object.keys(mockMenuData).filter(menu => menu.toLowerCase().includes(query));
+
+    resultsList.innerHTML = results.map(result => `<li onclick="selectMenu('${mealType}', ${index}, '${result}')">${result}</li>`).join('');
+}
+
+function selectMenu(mealType, index, menu) {
     const menuInput = document.getElementById(`${mealType}-menu-${index}`);
     const calorieDisplay = document.getElementById(`${mealType}-calories-${index}`);
+    const resultsList = document.getElementById(`${mealType}-results-${index}`);
 
-    // Simulate fetching calorie data for the given menu
+    // Simulate fetching calorie data for the selected menu
     // This should be replaced with an actual API call
     const mockCalories = {
         '김밥': 250,
         '라면': 500,
-        '샐러드': 150
+        '샐러드': 150,
+        '피자': 600,
+        '치킨': 700
     };
 
-    const menu = menuInput.value;
-    const calories = mockCalories[menu] || 0;
-
-    // Display the fetched calorie data
-    calorieDisplay.textContent = calories ? `${calories} kcal` : '칼로리 정보를 찾을 수 없습니다';
+    menuInput.value = menu;
+    calorieDisplay.textContent = `${mockCalories[menu]} kcal`;
+    resultsList.innerHTML = '';
 }
 
 // 임시 데이터로 그래프 표시
@@ -135,4 +154,12 @@ function updateChart() {
     const startDate = document.getElementById('start-date').value;
     const endDate = document.getElementById('end-date').value;
     console.log(`날짜 범위: ${startDate} - ${endDate}`);
+}
+
+
+function searchFunction(mealType, index) {
+    const inputElement = document.getElementById(`${mealType}-menu-${index}`);
+    const searchQuery = inputElement.value;
+
+    alert('검색하기 누르면 버튼 데이터베이스에서 fetch되도록 구현하기!');
 }
