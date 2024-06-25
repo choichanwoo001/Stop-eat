@@ -1,178 +1,205 @@
-function addMenuItem(mealType) {
-    const group = document.getElementById(`${mealType}-group`);
-    const index = group.getElementsByClassName('input-row').length / 3; // assuming each meal entry has 3 input rows (menu, serving, calories)
+// 메뉴를 검색하여 칼로리를 표시하는 함수
+function searchFunction(meal, index) {
+  const menuElement = document.getElementById(`${meal}-menu-${index}`);
+  const calorieElement = document.getElementById(`${meal}-calories-${index}`);
+  
+  if (!menuElement || !calorieElement) {
+      console.error(`Elements with ID ${meal}-menu-${index} or ${meal}-calories-${index} not found`);
+      return;
+  }
 
-    const newMenuRow = document.createElement('div');
-    newMenuRow.classList.add('input-row');
-    newMenuRow.innerHTML = `
-        <label for="${mealType}-menu-${index}">메뉴:</label>
-        <input type="text" id="${mealType}-menu-${index}" class="menu-input" data-meal="${mealType}">
-        <button class="search-button" onclick="searchFunction('${mealType}', ${index})">
-            <i class="fas fa-search"></i>
-        </button>
-        <ul id="${mealType}-results-${index}" class="search-results"></ul>
-    `;
+  const foodName = menuElement.value;
+  
+  if (!foodName) {
+      alert('메뉴를 입력하세요.');
+      return;
+  }
 
-    const newServingRow = document.createElement('div');
-    newServingRow.classList.add('input-row');
-    newServingRow.innerHTML = `
-        <label for="${mealType}-serving-${index}">인분:</label>
-        <input type='number' min='0.5' max='5' step='0.5' id="${mealType}-serving-${index}" class="serving-input" data-meal="${mealType}">
-        <div id="${mealType}-serving-display-${index}" class="calorie-display" data-meal="${mealType}"></div>
-    `;
-
-    const newCalorieRow = document.createElement('div');
-    newCalorieRow.classList.add('input-row');
-    newCalorieRow.innerHTML = `
-        <label for="${mealType}-calories-${index}">칼로리:</label>
-        <div id="${mealType}-calories-${index}" class="calorie-display" data-meal="${mealType}"></div>
-    `;
-
-    group.appendChild(newMenuRow);
-    group.appendChild(newServingRow);
-    group.appendChild(newCalorieRow);
+  // 서버로 검색 요청 보내기
+  fetch(`http://localhost:3000/searchFood?foodName=${encodeURIComponent(foodName)}`)
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          return response.json();
+      })
+      .then(data => {
+          if (data.length === 0) {
+              alert('검색 결과가 없습니다.');
+              return;
+          }
+          const result = data[0];
+          calorieElement.innerText = `총 칼로리: ${Math.round(result.calories)} kcal (${result.oneServing}g 당 ${Math.round(result.calories)} kcal)`;
+      })
+      .catch(error => {
+          console.error('Error fetching food data:', error);
+          alert('음식 데이터를 가져오는데 실패했습니다.');
+      });
 }
 
-function saveCalories() {
-    const date = document.getElementById('record-date').value;
-    if (!date) {
-        alert('날짜를 선택해주세요.');
-        return;
-    }
+// 모든 식사 정보를 저장하는 함수
+function saveAllMeals() {
+  const date = document.getElementById('record-date').value;
+  if (!date) {
+      alert('날짜를 선택하세요.');
+      return;
+  }
 
-    const meals = ['breakfast', 'lunch', 'dinner', 'snack'];
-    const calories = {};
+  const meals = [];
+  ['breakfast', 'lunch', 'dinner', 'snack'].forEach(mealTime => {
+      document.querySelectorAll(`#${mealTime}-group .input-row`).forEach((row, index) => {
+          const foodNameElement = document.getElementById(`${mealTime}-menu-${index}`);
+          const caloriesElement = document.getElementById(`${mealTime}-calories-${index}`);
 
-    meals.forEach(meal => {
-        const displays = document.querySelectorAll(`.calorie-display[data-meal=${meal}]`);
-        calories[meal] = Array.from(displays).reduce((total, display) => {
-            const cal = parseInt(display.textContent) || 0;
-            return total + cal;
-        }, 0);
-    });
+          if (foodNameElement && caloriesElement) {
+              const foodName = foodNameElement.value;
+              const caloriesText = caloriesElement.innerText.split(' ')[2];
+              const calories = parseFloat(caloriesText);
 
-    const totalCalories = Object.values(calories).reduce((total, cal) => total + cal, 0);
-    document.getElementById('total-calories').textContent = `${date}의 총 섭취 칼로리는 ${totalCalories}kcal입니다!`;
+              if (foodName && !isNaN(calories)) {
+                  meals.push({ userId: 1, date, meal_type: mealTime, menu: foodName, calories });
+              }
+          }
+      });
+  });
 
-    let adviceText = '';
-    if (calories.snack > 200) {
-        adviceText = '간식을 조금만 줄여보는 건 어떨까요?';
-    } else {
-        adviceText = '잘하고 있어요! 계속 유지하세요!';
-    }
-
-    const adviceBubble = document.getElementById('advice-bubble');
-    adviceBubble.textContent = adviceText;
-    adviceBubble.style.display = 'block';
-
-    // 입력 필드 초기화
-    document.querySelectorAll('.menu-input').forEach(input => input.value = '');
-    document.querySelectorAll('.calorie-display').forEach(display => display.textContent = '');
+  fetch('http://localhost:3000/saveMeal', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(meals)
+  })
+      .then(response => response.json())
+      .then(data => {
+          if (data.error) {
+              alert('저장하는데 실패했습니다: ' + data.message);
+          } else {
+              alert('데이터가 성공적으로 저장되었습니다.');
+              evaluateTotalCalories(meals);
+          }
+      })
+      .catch(error => {
+          console.error('Error saving data:', error);
+          alert('저장하는데 실패했습니다.');
+      });
 }
 
-function searchMenu(mealType, index) {
-    const menuInput = document.getElementById(`${mealType}-menu-${index}`);
-    const resultsList = document.getElementById(`${mealType}-results-${index}`);
-
-    // Simulate fetching menu data from the database
-    // This should be replaced with an actual API call
-    const mockMenuData = {
-        '김밥': 250,
-        '라면': 500,
-        '샐러드': 150,
-        '피자': 600,
-        '치킨': 700
-    };
-
-    const query = menuInput.value.toLowerCase();
-    const results = Object.keys(mockMenuData).filter(menu => menu.toLowerCase().includes(query));
-
-    resultsList.innerHTML = results.map(result => `<li onclick="selectMenu('${mealType}', ${index}, '${result}')">${result}</li>`).join('');
+// 총 칼로리를 계산하고 평가하는 함수
+function evaluateTotalCalories(meals) {
+  const totalCalories = meals.reduce((sum, meal) => sum + meal.calories, 0);
+  const adviceBubble = document.getElementById('advice-bubble');
+  
+  if (totalCalories > 2300) {
+      adviceBubble.innerHTML = `총 칼로리: ${totalCalories} kcal. 칼로리가 너무 높습니다. 조절이 필요합니다.<br><a href="dietEvaluation.html">자세히 보기</a>`;
+  } else {
+      adviceBubble.innerHTML = `총 칼로리: ${totalCalories} kcal. 적절한 칼로리 섭취입니다.<br><a href="dietEvaluation.html">자세히 보기</a>`;
+  }
 }
 
-function selectMenu(mealType, index, menu) {
-    const menuInput = document.getElementById(`${mealType}-menu-${index}`);
-    const calorieDisplay = document.getElementById(`${mealType}-calories-${index}`);
-    const resultsList = document.getElementById(`${mealType}-results-${index}`);
+// 주간 데이터를 불러오는 함수
+function fetchWeeklyData() {
+  const startDate = document.getElementById('start-date').value;
+  const endDate = document.getElementById('end-date').value;
 
-    // Simulate fetching calorie data for the selected menu
-    // This should be replaced with an actual API call
-    const mockCalories = {
-        '김밥': 250,
-        '라면': 500,
-        '샐러드': 150,
-        '피자': 600,
-        '치킨': 700
-    };
+  if (!startDate || !endDate) {
+      alert('시작 날짜와 종료 날짜를 모두 선택하세요.');
+      return;
+  }
 
-    menuInput.value = menu;
-    calorieDisplay.textContent = `${mockCalories[menu]} kcal`;
-    resultsList.innerHTML = '';
+  fetch(`http://localhost:3000/getWeeklyData?startDate=${startDate}&endDate=${endDate}`)
+      .then(response => response.json())
+      .then(data => {
+          displayWeeklyData(data);
+      })
+      .catch(error => {
+          console.error('Error fetching weekly data:', error);
+          alert('주간 데이터를 가져오는데 실패했습니다.');
+      });
 }
 
-// 임시 데이터로 그래프 표시
-document.addEventListener('DOMContentLoaded', () => {
-    const ctx = document.getElementById('calorie-chart').getContext('2d');
-    const chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05', '2024-01-06', '2024-01-07'],
-            datasets: [
-                {
-                    label: '아침',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    data: [300, 500, 400, 600, 350, 450, 500]
-                },
-                {
-                    label: '점심',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    data: [700, 800, 750, 700, 900, 850, 800]
-                },
-                {
-                    label: '저녁',
-                    borderColor: 'rgba(255, 206, 86, 1)',
-                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                    data: [600, 700, 800, 650, 700, 750, 700]
-                },
-                {
-                    label: '간식',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    data: [200, 300, 250, 200, 300, 250, 200]
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                x: {
-                    type: 'category',
-                    labels: ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05', '2024-01-06', '2024-01-07']
-                },
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+// 주간 데이터를 차트에 표시하는 함수
+function displayWeeklyData(data) {
+  const labels = [];
+  const caloriesData = { breakfast: [], lunch: [], dinner: [], snack: [] };
 
-    document.getElementById('start-date').addEventListener('change', updateChart);
-    document.getElementById('end-date').addEventListener('change', updateChart);
+  data.forEach(row => {
+      if (!labels.includes(row.date)) {
+          labels.push(row.date);
+      }
+      caloriesData[row.meal_type].push(row.total_calories);
+  });
 
+  const ctx = document.getElementById('calorie-chart').getContext('2d');
+  new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels,
+          datasets: [
+              {
+                  label: '아침',
+                  data: caloriesData.breakfast,
+                  borderColor: 'rgba(255, 99, 132, 1)',
+                  borderWidth: 1
+              },
+              {
+                  label: '점심',
+                  data: caloriesData.lunch,
+                  borderColor: 'rgba(54, 162, 235, 1)',
+                  borderWidth: 1
+              },
+              {
+                  label: '저녁',
+                  data: caloriesData.dinner,
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 1
+              },
+              {
+                  label: '간식',
+                  data: caloriesData.snack,
+                  borderColor: 'rgba(153, 102, 255, 1)',
+                  borderWidth: 1
+              }
+          ]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+
+  const totalCalories = (caloriesData.breakfast.reduce((a, b) => a + b, 0) +
+      caloriesData.lunch.reduce((a, b) => a + b, 0) +
+      caloriesData.dinner.reduce((a, b) => a + b, 0) +
+      caloriesData.snack.reduce((a, b) => a + b, 0)) / labels.length;
+
+  const height = 1.75; // 키를 미터 단위로 설정 (예: 1.75m)
+  const standardWeight = calculateStandardWeight(height);
+  const recommendedCalories = calculateRecommendedCalories(standardWeight);
+  const weeklyAdvice = totalCalories > recommendedCalories ? '평균 칼로리가 너무 높습니다.' : '평균 칼로리가 적당합니다.';
+  document.getElementById('weekly-advice-bubble').innerHTML = `${weeklyAdvice}<br><a href="dietEvaluation.html">자세히 보기</a>`;
+}
+
+// 표준체중을 계산하는 함수 (21.5로 고정)
+function calculateStandardWeight(height) {
+  return height * height * 21.5;
+}
+
+// 일일 권장 칼로리를 계산하는 함수 (활동 지수 30으로 고정)
+function calculateRecommendedCalories(standardWeight) {
+  return standardWeight * 30;
+}
+
+// "저장하기" 버튼에 이벤트 리스너 추가
+document.querySelector('.save-button').addEventListener('click', saveAllMeals);
+
+// 이벤트 리스너를 검색 버튼에 추가
+document.querySelectorAll('.search-button').forEach((button, index) => {
+  const meal = button.closest('.meal-card').id.split('-')[0];
+  button.addEventListener('click', () => searchFunction(meal, index));
 });
 
-function updateChart() {
-    // 여기서는 날짜에 맞춰 데이터를 업데이트하는 로직을 추가하세요.
-    const startDate = document.getElementById('start-date').value;
-    const endDate = document.getElementById('end-date').value;
-    console.log(`날짜 범위: ${startDate} - ${endDate}`);
-}
-
-function searchFunction(mealType, index) {
-    const inputElement = document.getElementById(`${mealType}-menu-${index}`);
-    const searchQuery = inputElement.value;
-
-    alert('검색하기 누르면 버튼 데이터베이스에서 fetch되도록 구현하기!');
-}
+// 주간 데이터를 불러오는 이벤트 리스너 추가
+document.getElementById('start-date').addEventListener('change', fetchWeeklyData);
+document.getElementById('end-date').addEventListener('change', fetchWeeklyData);
