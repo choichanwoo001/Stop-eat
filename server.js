@@ -53,7 +53,7 @@ app.post('/register', (req, res) => {
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
-    const query = 'SELECT * FROM login WHERE username = ?';
+    const query = 'SELECT * FROM signup WHERE username = ?';
     db.query(query, [username], (err, results) => {
         if (err) {
             console.error('Error fetching user:', err);
@@ -170,7 +170,7 @@ app.post('/saveMeal', (req, res) => {
 // Search food by name
 app.get('/searchFood', (req, res) => {
   const { foodName } = req.query;
-  const query = 'SELECT foodName, oneServing, calories FROM food_info WHERE foodName LIKE ?';
+  const query = 'SELECT foodName, calories FROM food_data WHERE foodName LIKE ?';
 
   db.query(query, [`%${foodName}%`], (err, results) => {
       if (err) {
