@@ -1,4 +1,15 @@
 # **StopEat**
+![스크린샷 2024-11-24 234159](https://github.com/user-attachments/assets/dd469d1d-ce1a-4816-bb60-57055533025c)
+
+![스크린샷 2024-11-24 233701](https://github.com/user-attachments/assets/fd8550c8-1188-4b5c-adfc-d92a81888587)
+
+![스크린샷 2024-11-24 233651](https://github.com/user-attachments/assets/e2ef5c28-a7a8-4d32-ad3b-6e68449c6ee4)
+
+![스크린샷 2024-11-24 233554](https://github.com/user-attachments/assets/9ee5374a-e787-454e-97c5-d3c0177fb80e)
+
+![스크린샷 2024-11-24 233709](https://github.com/user-attachments/assets/a215480f-065e-4a9e-bafb-a168defdb0bd)
+
+![스크린샷 2024-11-24 233613](https://github.com/user-attachments/assets/43c18e64-187d-4555-86a5-df1c0353af07)
 
 *미로, 파도, 시간* 이라는 세 가지 키워드를 중심으로  
 감정의 복잡함(미로), 감정의 흐름(파도),  
