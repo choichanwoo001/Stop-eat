@@ -1,0 +1,223 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #ffede4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+header {
+    width: 100%;
+    padding: 6px 0;
+    background-color: #ffe9df;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    flex-wrap: wrap;
+}
+
+#logo {
+    max-width: 100px;
+    margin-left: 30px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-links a {
+    font-size: 18px;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #ffa08f;
+    color: #fff;
+}
+
+.header-buttons {
+    display: flex;
+    margin-right: 30px;
+    gap: 20px;
+    justify-content: flex-end;
+}
+
+.header-buttons button {
+    font-size: 14px; 
+    font-family: 'Noto Sans KR', sans-serif;
+    color: white; 
+    background-color: #ff6f61;
+    border: none;
+    border-radius: 8px; 
+    padding: 6px 12px; 
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.header-buttons button:hover {
+    background-color: #ff5a4a; 
+    transform: translateY(-2px); 
+}
+
+.header-buttons button i {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+
+/*메인 시작*/
+.container {
+    background-color: #FFFFFF;
+    padding: 20px 50px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    height: calc(100vh - 160px);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures the final evaluation section is at the bottom */
+}
+
+#container-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+}
+
+h2 {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    margin: 0;
+}
+
+.weekly-date-picker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);   
+}
+
+.weekly-date-picker label {  /* 라벨과 인풋 사이의 간격 조정 */
+    margin-right: 10px;
+}
+
+.weekly-date-picker input[type="date"] {
+    margin-right: 20px;
+}
+
+input[type="date"] {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 1em;
+    color: #333;
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: #333;
+    cursor: pointer;
+}
+
+.weekly-date-picker button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    font-size: 1.2em;
+}
+
+/* Add these styles to your existing CSS */
+
+.evaluation-box canvas {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    max-height: 300px; /* Set a maximum height for the canvas */
+    margin: 0 auto; /* Center the canvas */
+}
+
+/*
+.evaluation-section {
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+}
+*/
+
+.evaluation-section {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px; 
+    flex: 1; /* Ensures it takes the remaining space */
+    margin-bottom: 20px;
+    
+}
+
+.evaluation-box {
+    background-color: #ffe9df;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    font-size: 20px;
+    color: #333;
+    box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
+
+.final-evaluation {
+    background-color: #ffe9df;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    font-size: 20px;
+    color: #333;
+    box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    flex: 1;
+}
+
+h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #555;
+    margin-top: 0;
+    text-align: center;
+    flex: 1;
+}
+
+p {
+    margin: 0;
+}
