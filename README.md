@@ -89,7 +89,7 @@
 - **Vanilla JS**
 
 ### **백엔드**
-- **Node.js**
+- **JavaScript.js**
 
 ### **AI**
 - **ChatGPT API (Node.js)**
